@@ -35,4 +35,10 @@ public class LocalizationController {
     public ResponseEntity<LocalizationDto> createLocalization(@Valid @RequestBody NewLocalizationDto newLocalizationDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(localizationService.createLocalization(newLocalizationDto));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<LocalizationDto> deleteLocalization(@PathVariable UUID id) {
+        localizationService.deleteLocalization(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

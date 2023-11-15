@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,19 +22,31 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @PostMapping("/{localizationId}")
+    @GetMapping("/{localizationId}")
     public ResponseEntity<List<WeatherDto>> getWeatherByLocalizationId(@PathVariable UUID localizationId) {
         return ResponseEntity.status(HttpStatus.OK).body(weatherService.getWeatherByLocalizationId(localizationId));
     }
 
-    @PostMapping("/byName/{localizationName}")
+    @GetMapping("/byName/{localizationName}")
     public ResponseEntity<List<WeatherDto>> getWeatherByLocalizationName(@PathVariable String localizationName) {
         return ResponseEntity.status(HttpStatus.OK).body(weatherService.getWeatherByLocalizationName(localizationName));
+    }
+
+    @GetMapping("/{localizationId}/range")
+    public ResponseEntity<List<WeatherDto>> getWeatherByDateRange(@PathVariable UUID localizationId
+            , @RequestParam("start") LocalDateTime start, @RequestParam("end") LocalDateTime end) {
+        return ResponseEntity.status(HttpStatus.OK).body(weatherService.getWeatherByDateRange(localizationId, start, end));
     }
 
     @PostMapping("/{localizationId}")
     public ResponseEntity<WeatherDto> createWeather(@Valid @RequestBody NewWeatherDto newWeatherDto
             , @PathVariable UUID localizationId) {
         return ResponseEntity.status(HttpStatus.CREATED).body(weatherService.createWeather(newWeatherDto,localizationId));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<WeatherDto> deleteWeather(@PathVariable UUID id) {
+        weatherService.deleteWeather(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

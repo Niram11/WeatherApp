@@ -37,4 +37,8 @@ public class LocalizationService {
         Localization createdLocation = localizationRepository.save(mapper.dtoToLocalization(newLocalizationDto));
         return mapper.toDto(createdLocation);
     }
+
+    public void deleteLocalization(UUID id) {
+        localizationRepository.delete(mapper.dtoToLocalization(id));
+    }
 }

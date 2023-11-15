@@ -9,6 +9,8 @@ import com.codecool.repository.entity.Weather;
 import com.codecool.service.mapper.WeatherMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,11 +41,23 @@ public class WeatherService {
                 .toList();
     }
 
+    public List<WeatherDto> getWeatherByDateRange(UUID localizationId, LocalDateTime start, LocalDateTime end) {
+        return weatherRepository.getWeatherByLocalizationAndDateRange(localizationId, start, end)
+                .stream()
+                .map(mapper::toDto)
+                .toList();
+
+    }
+
     public WeatherDto createWeather(NewWeatherDto newWeatherDto, UUID localizationId) {
         Localization localization = localizationRepository.findById(localizationId).get();
         Weather weather = mapper.dtoToWeather(newWeatherDto);
         weather.setLocalization(localization);
         weatherRepository.save(weather);
         return mapper.toDto(weather);
+    }
+
+    public void deleteWeather(UUID id) {
+        weatherRepository.delete(mapper.dtoToWeather(id));
     }
 }
