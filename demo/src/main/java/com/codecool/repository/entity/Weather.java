@@ -46,6 +46,9 @@ public class Weather {
 
     private Double devPoint;
 
+    public UUID getId() {
+        return id;
+    }
 
     public UUID getLocationId() {
         return locationId;
