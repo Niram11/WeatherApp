@@ -1,11 +1,13 @@
 package com.codecool.dto.Weather;
 
+import com.codecool.repository.entity.Localization;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record WeatherDto(
         UUID id,
-        UUID locationId,
+        Localization localization,
         LocalDateTime timestamp,
         Double temperature,
         Double sensedTemperature,

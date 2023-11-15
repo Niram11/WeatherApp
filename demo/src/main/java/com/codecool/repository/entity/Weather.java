@@ -1,9 +1,6 @@
 package com.codecool.repository.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -18,8 +15,7 @@ public class Weather {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotBlank(message = "Location Id cannot be empty")
-    private UUID locationId;
+
 
     @NotBlank(message = "Timestamp cannot be empty")
     private LocalDateTime timestamp;
@@ -46,16 +42,12 @@ public class Weather {
 
     private Double devPoint;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Localization localization;
+
     public UUID getId() {
         return id;
-    }
-
-    public UUID getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(UUID locationId) {
-        this.locationId = locationId;
     }
 
     public LocalDateTime getTimestamp() {
@@ -120,5 +112,13 @@ public class Weather {
 
     public void setDevPoint(Double devPoint) {
         this.devPoint = devPoint;
+    }
+
+    public Localization getLocalization() {
+        return localization;
+    }
+
+    public void setLocalization(Localization localization) {
+        this.localization = localization;
     }
 }
