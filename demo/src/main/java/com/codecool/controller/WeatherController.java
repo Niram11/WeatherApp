@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +30,12 @@ public class WeatherController {
     public ResponseEntity<List<WeatherDto>> getWeatherByLocalizationName(@PathVariable String localizationName) {
         return ResponseEntity.status(HttpStatus.OK).body(weatherService.getWeatherByLocalizationName(localizationName));
     }
+
+    @GetMapping("/{localizationId}/latest")
+    public ResponseEntity<WeatherDto> getLatestWeather(@PathVariable UUID localizationId) {
+        return ResponseEntity.status(HttpStatus.OK).body(weatherService.getLatestWeather(localizationId));
+    }
+
 
     @GetMapping("/{localizationId}/range")
     public ResponseEntity<List<WeatherDto>> getWeatherByDateRange(@PathVariable UUID localizationId

@@ -27,6 +27,10 @@ public class WeatherService {
         this.localizationRepository = localizationRepository;
     }
 
+    public WeatherDto getLatestWeather(UUID localizationId) {
+        return mapper.toDto(weatherRepository.getLatestWeather(localizationId));
+    }
+
     public List<WeatherDto> getWeatherByLocalizationId(UUID localizationId) {
         return weatherRepository.getWeatherByLocalizationId(localizationId)
                 .stream()
