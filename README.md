@@ -14,22 +14,4 @@ Add new weather data and locations.
 Update existing data.
 Delete weather data and location information.
 Search for weather data based on location and date range.
-How to Run
-Requirements
-Java JDK 11 or newer
-Maven
-PostgreSQL
-Installation and Execution
-Clone the repository:
-bash
-Copy code
-git clone [repository URL]
-Navigate to the project folder:
-bash
-Copy code
-cd weather-app
-Create a PostgreSQL database according to the configuration in application.yaml.
-Run the application:
-arduino
-Copy code
-mvn spring-boot:run
+
